@@ -1,7 +1,7 @@
 import requests
+import csv
 from bs4 import BeautifulSoup
 from flask import Flask
-
 
 
 app = Flask(__name__)
@@ -34,7 +34,20 @@ def conjugatePresent(verb):
 @app.route('/define/document/<filename>')
 def defineDoc(filename):
 
-	s = translate('el perro')
-	return s
+    f = open('./app/test2.csv', 'rb')
+
+    definitions = []
+
+    wordList = list(csv.DictReader(f))
+    for word in wordList:
+    	termDef = translate(word["Word"])
+    	definitions.append(termDef)
+
+    print(definitions)
+
+    return "got it"
+
+	#s = translate('el perro')
+	#return s
 
 
